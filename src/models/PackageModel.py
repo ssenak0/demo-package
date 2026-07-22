@@ -5,56 +5,51 @@ from sdks.novavision.src.base.model import Package, Config, Inputs, Configs, Out
 class InputImage1(Input):
     name: Literal["inputImage1"] = "inputImage1"
     value: Union[List[Image], Image]
-    type: Literal["Images"] = "Images"
-    field: Literal["img"] = "img"
+    type: str = "object"
     class Config:
         title = "Image Input 1"
 
 class InputImage2(Input):
     name: Literal["inputImage2"] = "inputImage2"
     value: Union[List[Image], Image]
-    type: Literal["Images"] = "Images"
-    field: Literal["img"] = "img"
+    type: str = "object"
     class Config:
         title = "Image Input 2"
 
 class InputImage3(Input):
     name: Literal["inputImage3"] = "inputImage3"
     value: Union[List[Image], Image]
-    type: Literal["Images"] = "Images"
-    field: Literal["img"] = "img"
+    type: str = "object"
     class Config:
         title = "Image Input 3"
 
 class OutputImage1(Output):
     name: Literal["outputImage1"] = "outputImage1"
-    value: Union[List[Image], Image]
-    type: Literal["Images"] = "Images"
-    field: Literal["img"] = "img"
+    value: Union[list, str]
+    type: str = "object"
     class Config:
-        title = "Image Output 1"
+        title = "Result Output 1"
 
 class OutputImage2(Output):
     name: Literal["outputImage2"] = "outputImage2"
-    value: Union[List[Image], Image]
-    type: Literal["Images"] = "Images"
-    field: Literal["img"] = "img"
+    value: Union[list, str]
+    type: str = "object"
     class Config:
-        title = "Image Output 2"
+        title = "Result Output 2"
 
 class OutputImage3(Output):
     name: Literal["outputImage3"] = "outputImage3"
-    value: Union[List[Image], Image]
-    type: Literal["Images"] = "Images"
-    field: Literal["img"] = "img"
+    value: Union[list, str]
+    type: str = "object"
     class Config:
-        title = "Image Output 3"
+        title = "Result Output 3"
 
 class OptionAIntegerField(Config):
     name: Literal["OptionAIntegerField"] = "OptionAIntegerField"
     value: int = Field(default=10)
     type: Literal["number"] = "number"
     field: Literal["textInput"] = "textInput"
+    placeHolder: Literal["Enter integer"] = "Enter integer"
     class Config:
         title = "Integer Field for A"
 
@@ -63,6 +58,7 @@ class OptionAStringField(Config):
     value: str = Field(default="demo A")
     type: Literal["string"] = "string"
     field: Literal["textInput"] = "textInput"
+    placeHolder: Literal["Enter string"] = "Enter string"
     class Config:
         title = "String Field for A"
 
@@ -81,6 +77,7 @@ class OptionBFloatField(Config):
     value: float = Field(default=1.5)
     type: Literal["number"] = "number"
     field: Literal["textInput"] = "textInput"
+    placeHolder: Literal["Enter float"] = "Enter float"
     class Config:
         title = "Float Field for B"
 
@@ -89,6 +86,7 @@ class OptionBStringField(Config):
     value: str = Field(default="demo B")
     type: Literal["string"] = "string"
     field: Literal["textInput"] = "textInput"
+    placeHolder: Literal["Enter string"] = "Enter string"
     class Config:
         title = "String Field for B"
 
@@ -115,21 +113,12 @@ class DemoDependentDropdown(Config):
 
 class ExecutorOneInputs(Inputs):
     inputImage1: InputImage1
-    value: str = "Inputs"
-    type: Literal["object"] = "object"
-    field: Literal["input"] = "input"
 
 class ExecutorOneConfigs(Configs):
     demoDependentDropdown: DemoDependentDropdown
-    value: str = "Configs"
-    type: Literal["object"] = "object"
-    field: Literal["config"] = "config"
 
 class ExecutorOneOutputs(Outputs):
     outputImage1: OutputImage1
-    value: str = "Outputs"
-    type: Literal["object"] = "object"
-    field: Literal["output"] = "output"
 
 class ExecutorOneRequest(Request):
     inputs: Optional[ExecutorOneInputs]
@@ -152,22 +141,13 @@ class ExecutorOne(Config):
 class ExecutorTwoInputs(Inputs):
     inputImage2: InputImage2
     inputImage3: InputImage3
-    value: str = "Inputs"
-    type: Literal["object"] = "object"
-    field: Literal["input"] = "input"
 
 class ExecutorTwoConfigs(Configs):
     demoDependentDropdown: DemoDependentDropdown
-    value: str = "Configs"
-    type: Literal["object"] = "object"
-    field: Literal["config"] = "config"
 
 class ExecutorTwoOutputs(Outputs):
     outputImage2: OutputImage2
     outputImage3: OutputImage3
-    value: str = "Outputs"
-    type: Literal["object"] = "object"
-    field: Literal["output"] = "output"
 
 class ExecutorTwoRequest(Request):
     inputs: Optional[ExecutorTwoInputs]
@@ -198,12 +178,8 @@ class ConfigExecutor(Config):
 
 class PackageConfigs(Configs):
     executor: ConfigExecutor
-    value: str = "Configs"
-    type: Literal["object"] = "object"
-    field: Literal["config"] = "config"
 
 class PackageModel(Package):
     configs: PackageConfigs
     type: Literal["component"] = "component"
     name: Literal["DemoPackage"] = "DemoPackage"
-    uID: str = "1331112"
