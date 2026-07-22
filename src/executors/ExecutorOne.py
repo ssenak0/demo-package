@@ -5,11 +5,11 @@ import cv2
 sys.path.append(os.path.join(os.path.dirname(__file__), '../../../../'))
 
 from sdks.novavision.src.media.image import Image
-from sdks.novavision.src.base.capsule import Capsule
+from sdks.novavision.src.base.component import Component
 from sdks.novavision.src.helper.executor import Executor
-from src.models.PackageModel import PackageModel
+from novavision.demo_package.models.PackageModel import PackageModel
 
-class ExecutorOne(Capsule):
+class ExecutorOne(Component):
     def __init__(self, request, bootstrap):
         super().__init__(request, bootstrap)
         self.request.model = PackageModel(**(self.request.data))
