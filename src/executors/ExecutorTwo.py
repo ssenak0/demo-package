@@ -13,8 +13,8 @@ class ExecutorTwo(Component):
     def __init__(self, request, bootstrap):
         super().__init__(request, bootstrap)
         self.request.model = PackageModel(**(self.request.data))
-        self.image_two = self.request.get_param("inputTwo")
-        self.image_three = self.request.get_param("inputThree")
+        self.image_two = self.request.get_param("inputImage2")
+        self.image_three = self.request.get_param("inputImage3")
         self.method = self.request.get_param("demoDependentDropdown")
 
     @staticmethod
