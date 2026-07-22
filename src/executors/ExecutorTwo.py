@@ -8,6 +8,7 @@ from sdks.novavision.src.media.image import Image
 from sdks.novavision.src.base.component import Component
 from sdks.novavision.src.helper.executor import Executor
 from novavision.demo_package.models.PackageModel import PackageModel
+from novavision.demo_package.utils.response import build_response_two
 
 class ExecutorTwo(Component):
     def __init__(self, request, bootstrap):
@@ -35,13 +36,12 @@ class ExecutorTwo(Component):
         result = self.process(img_two.value, img_three.value)
         
         img_two.value = result[0]
-        output_frame_two = Image.set_frame(img=img_two, package_uID=self.uID, redis_db=self.redis_db)
-        self.request.model.outputs.outputImageTwo.value = output_frame_two
+        self.output_image_two = Image.set_frame(img=img_two, package_uID=self.uID, redis_db=self.redis_db)
         
         img_three.value = result[1]
-        output_frame_three = Image.set_frame(img=img_three, package_uID=self.uID, redis_db=self.redis_db)
-        self.request.model.outputs.outputImageThree.value = output_frame_three
-        packageModel = self.request.model.dict()
+        self.output_image_three = Image.set_frame(img=img_three, package_uID=self.uID, redis_db=self.redis_db)
+        
+        packageModel = build_response_two(self)
         return packageModel
 
 if "__main__" == __name__:

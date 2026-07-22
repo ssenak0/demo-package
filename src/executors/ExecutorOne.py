@@ -8,6 +8,7 @@ from sdks.novavision.src.media.image import Image
 from sdks.novavision.src.base.component import Component
 from sdks.novavision.src.helper.executor import Executor
 from novavision.demo_package.models.PackageModel import PackageModel
+from novavision.demo_package.utils.response import build_response_one
 
 class ExecutorOne(Component):
     def __init__(self, request, bootstrap):
@@ -35,11 +36,9 @@ class ExecutorOne(Component):
         img_one = Image.get_frame(img=self.image_one, redis_db=self.redis_db)
         result = self.process(img_one.value)
         img_one.value = result
-        output_frame = Image.set_frame(img=img_one, package_uID=self.uID, redis_db=self.redis_db)
+        self.output_image_one = Image.set_frame(img=img_one, package_uID=self.uID, redis_db=self.redis_db)
         
-        self.request.model.outputs.outputImageOne.value = output_frame
-        
-        packageModel = self.request.model.dict()
+        packageModel = build_response_one(self)
         return packageModel
 
 if "__main__" == __name__:
