@@ -31,7 +31,16 @@ class ExecutorTwo(Component):
     def run(self):
         img_two = Image.get_frame(img=self.image_two, redis_db=self.redis_db)
         img_three = Image.get_frame(img=self.image_three, redis_db=self.redis_db)
-        res1, res2 = self.process(img_two.value, img_three.value)
+        
+        result = self.process(img_two.value, img_three.value)
+        
+        img_two.value = result[0]
+        output_frame_two = Image.set_frame(img=img_two, package_uID=self.uID, redis_db=self.redis_db)
+        self.request.model.outputs.outputImageTwo.value = output_frame_two
+        
+        img_three.value = result[1]
+        output_frame_three = Image.set_frame(img=img_three, package_uID=self.uID, redis_db=self.redis_db)
+        self.request.model.outputs.outputImageThree.value = output_frame_three
         packageModel = self.request.model.dict()
         return packageModel
 

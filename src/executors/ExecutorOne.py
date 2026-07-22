@@ -34,6 +34,11 @@ class ExecutorOne(Component):
     def run(self):
         img_one = Image.get_frame(img=self.image_one, redis_db=self.redis_db)
         result = self.process(img_one.value)
+        img_one.value = result
+        output_frame = Image.set_frame(img=img_one, package_uID=self.uID, redis_db=self.redis_db)
+        
+        self.request.model.outputs.outputImageOne.value = output_frame
+        
         packageModel = self.request.model.dict()
         return packageModel
 
