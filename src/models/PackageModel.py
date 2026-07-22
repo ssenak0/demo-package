@@ -25,21 +25,21 @@ class InputImage3(Input):
 
 class OutputImage1(Output):
     name: Literal["outputImage1"] = "outputImage1"
-    value: Union[list, str]
+    value: Union[List[Image], Image]
     type: str = "object"
     class Config:
         title = "Result Output 1"
 
 class OutputImage2(Output):
     name: Literal["outputImage2"] = "outputImage2"
-    value: Union[list, str]
+    value: Union[List[Image], Image]
     type: str = "object"
     class Config:
         title = "Result Output 2"
 
 class OutputImage3(Output):
     name: Literal["outputImage3"] = "outputImage3"
-    value: Union[list, str]
+    value: Union[List[Image], Image]
     type: str = "object"
     class Config:
         title = "Result Output 3"
@@ -49,7 +49,6 @@ class OptionAIntegerField(Config):
     value: int = Field(default=10)
     type: Literal["number"] = "number"
     field: Literal["textInput"] = "textInput"
-    placeHolder: Literal["Enter integer"] = "Enter integer"
     class Config:
         title = "Integer Field for A"
 
@@ -58,7 +57,6 @@ class OptionAStringField(Config):
     value: str = Field(default="demo A")
     type: Literal["string"] = "string"
     field: Literal["textInput"] = "textInput"
-    placeHolder: Literal["Enter string"] = "Enter string"
     class Config:
         title = "String Field for A"
 
@@ -77,7 +75,6 @@ class OptionBFloatField(Config):
     value: float = Field(default=1.5)
     type: Literal["number"] = "number"
     field: Literal["textInput"] = "textInput"
-    placeHolder: Literal["Enter float"] = "Enter float"
     class Config:
         title = "Float Field for B"
 
@@ -86,7 +83,6 @@ class OptionBStringField(Config):
     value: str = Field(default="demo B")
     type: Literal["string"] = "string"
     field: Literal["textInput"] = "textInput"
-    placeHolder: Literal["Enter string"] = "Enter string"
     class Config:
         title = "String Field for B"
 
@@ -168,7 +164,7 @@ class ExecutorTwo(Config):
         json_schema_extra = {"target": {"value": 0}}
 
 class ConfigExecutor(Config):
-    name: Literal["configExecutor"] = "configExecutor"
+    name: Literal["ConfigExecutor"] = "ConfigExecutor"
     value: Union[ExecutorOne, ExecutorTwo]
     type: Literal["executor"] = "executor"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
