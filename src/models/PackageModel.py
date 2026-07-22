@@ -157,7 +157,6 @@ class ConfigExecutor(Config):
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
     class Config:
         title = "Task"
-        json_schema_extra = {"target": "value"}
 
 # ----------------- PACKAGE -----------------
 class PackageConfigs(Configs):
