@@ -5,48 +5,42 @@ from sdks.novavision.src.base.model import Package, Config, Inputs, Configs, Out
 class InputOne(Input):
     name: Literal["inputOne"] = "inputOne"
     value: Union[List[Image], Image]
-    type: Literal["object"] = "object"
-    field: Literal["input"] = "input"
+    type: str = "object"
     class Config:
         title = "Image Input 1"
 
 class InputTwo(Input):
     name: Literal["inputTwo"] = "inputTwo"
     value: Union[List[Image], Image]
-    type: Literal["object"] = "object"
-    field: Literal["input"] = "input"
+    type: str = "object"
     class Config:
         title = "Image Input 2"
 
 class InputThree(Input):
     name: Literal["inputThree"] = "inputThree"
     value: Union[List[Image], Image]
-    type: Literal["object"] = "object"
-    field: Literal["input"] = "input"
+    type: str = "object"
     class Config:
         title = "Image Input 3"
 
 class OutputOne(Output):
     name: Literal["outputOne"] = "outputOne"
     value: Union[list, str]
-    type: Literal["object"] = "object"
-    field: Literal["output"] = "output"
+    type: str = "list"
     class Config:
         title = "Result Output 1"
 
 class OutputTwo(Output):
     name: Literal["outputTwo"] = "outputTwo"
     value: Union[list, str]
-    type: Literal["object"] = "object"
-    field: Literal["output"] = "output"
+    type: str = "list"
     class Config:
         title = "Result Output 2"
 
 class OutputThree(Output):
     name: Literal["outputThree"] = "outputThree"
     value: Union[list, str]
-    type: Literal["object"] = "object"
-    field: Literal["output"] = "output"
+    type: str = "list"
     class Config:
         title = "Result Output 3"
 
@@ -115,21 +109,12 @@ class DemoDependentDropdown(Config):
 
 class ExecutorOneInputs(Inputs):
     inputOne: InputOne
-    value: str = "Inputs"
-    type: Literal["object"] = "object"
-    field: Literal["input"] = "input"
 
 class ExecutorOneConfigs(Configs):
     demoDependentDropdown: DemoDependentDropdown
-    value: str = "Configs"
-    type: Literal["object"] = "object"
-    field: Literal["config"] = "config"
 
 class ExecutorOneOutputs(Outputs):
     outputOne: OutputOne
-    value: str = "Outputs"
-    type: Literal["object"] = "object"
-    field: Literal["output"] = "output"
 
 class ExecutorOneRequest(Request):
     inputs: Optional[ExecutorOneInputs]
@@ -152,22 +137,13 @@ class ExecutorOne(Config):
 class ExecutorTwoInputs(Inputs):
     inputTwo: InputTwo
     inputThree: InputThree
-    value: str = "Inputs"
-    type: Literal["object"] = "object"
-    field: Literal["input"] = "input"
 
 class ExecutorTwoConfigs(Configs):
     demoDependentDropdown: DemoDependentDropdown
-    value: str = "Configs"
-    type: Literal["object"] = "object"
-    field: Literal["config"] = "config"
 
 class ExecutorTwoOutputs(Outputs):
     outputTwo: OutputTwo
     outputThree: OutputThree
-    value: str = "Outputs"
-    type: Literal["object"] = "object"
-    field: Literal["output"] = "output"
 
 class ExecutorTwoRequest(Request):
     inputs: Optional[ExecutorTwoInputs]
@@ -198,9 +174,6 @@ class ConfigExecutor(Config):
 
 class PackageConfigs(Configs):
     executor: ConfigExecutor
-    value: str = "Configs"
-    type: Literal["object"] = "object"
-    field: Literal["config"] = "config"
 
 class PackageModel(Package):
     configs: PackageConfigs
