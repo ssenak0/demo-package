@@ -1,6 +1,6 @@
 from pydantic import validator, Field
 from typing import List, Union, Literal, Optional
-from sdks.novavision.src.base.model import Package, Config, Inputs, Configs, Outputs, Output, Input, Image, Request, Response, Param, Executor
+from sdks.novavision.src.base.model import Package, Config, Inputs, Configs, Outputs, Output, Input, Image, Request, Response
 
 class InputOne(Input):
     name: Literal["inputOne"] = "inputOne"
