@@ -109,7 +109,7 @@ class DemoDependentDropdown(Config):
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
     class Config:
         title = "Select Method"
-        schema_extra = {
+        json_schema_extra = {
             "shortDescription": "Method Selection"
         }
 
@@ -135,7 +135,7 @@ class ExecutorOneRequest(Request):
     inputs: Optional[ExecutorOneInputs]
     configs: ExecutorOneConfigs
     class Config:
-        schema_extra = {"target": "configs"}
+        json_schema_extra = {"target": "configs"}
 
 class ExecutorOneResponse(Response):
     outputs: ExecutorOneOutputs
@@ -147,7 +147,7 @@ class ExecutorOne(Config):
     field: Literal["option"] = "option"
     class Config:
         title = "Executor One"
-        schema_extra = {"target": {"value": 0}}
+        json_schema_extra = {"target": {"value": 0}}
 
 class ExecutorTwoInputs(Inputs):
     inputTwo: InputTwo
@@ -173,7 +173,7 @@ class ExecutorTwoRequest(Request):
     inputs: Optional[ExecutorTwoInputs]
     configs: ExecutorTwoConfigs
     class Config:
-        schema_extra = {"target": "configs"}
+        json_schema_extra = {"target": "configs"}
 
 class ExecutorTwoResponse(Response):
     outputs: ExecutorTwoOutputs
@@ -185,7 +185,7 @@ class ExecutorTwo(Config):
     field: Literal["option"] = "option"
     class Config:
         title = "Executor Two"
-        schema_extra = {"target": {"value": 0}}
+        json_schema_extra = {"target": {"value": 0}}
 
 class ConfigExecutor(Config):
     name: Literal["configExecutor"] = "configExecutor"
@@ -194,7 +194,7 @@ class ConfigExecutor(Config):
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
     class Config:
         title = "Executor Options"
-        schema_extra = {"target": "value"}
+        json_schema_extra = {"target": "value"}
 
 class PackageConfigs(Configs):
     executor: ConfigExecutor
