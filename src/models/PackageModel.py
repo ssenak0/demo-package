@@ -1,50 +1,50 @@
-from pydantic import validator, Field
+from pydantic import Field
 from typing import List, Union, Literal, Optional
-from sdks.novavision.src.base.model import Package, Config, Inputs, Configs, Outputs, Output, Input, Image, Request, Response
+from sdks.novavision.src.base.model import Package, Executor, Param, Inputs, Configs, Outputs, Response, Request, Image
 
-class InputImage1(Input):
-    name: Literal["inputImage1"] = "inputImage1"
-    value: Union[List[Image], Image]
-    type: str = "object"
+class ImageList(Param):
+    value: List[Image]
+
+# ----------------- INPUTS -----------------
+class InputImageOne(Param):
+    name: Literal["inputImageOne"] = "inputImageOne"
+    value: ImageList
+    type: Literal["imageList"] = "imageList"
+    field: Literal["img"] = "img"
     class Config:
         title = "Image Input 1"
 
-class InputImage2(Input):
-    name: Literal["inputImage2"] = "inputImage2"
-    value: Union[List[Image], Image]
-    type: str = "object"
+class InputImageTwo(Param):
+    name: Literal["inputImageTwo"] = "inputImageTwo"
+    value: ImageList
+    type: Literal["imageList"] = "imageList"
+    field: Literal["img"] = "img"
     class Config:
         title = "Image Input 2"
 
-class InputImage3(Input):
-    name: Literal["inputImage3"] = "inputImage3"
-    value: Union[List[Image], Image]
-    type: str = "object"
+class InputImageThree(Param):
+    name: Literal["inputImageThree"] = "inputImageThree"
+    value: ImageList
+    type: Literal["imageList"] = "imageList"
+    field: Literal["img"] = "img"
     class Config:
         title = "Image Input 3"
 
-class OutputImage1(Output):
-    name: Literal["outputImage1"] = "outputImage1"
-    value: Union[List[Image], Image]
-    type: str = "object"
-    class Config:
-        title = "Result Output 1"
+class ExecutorOneInputs(Inputs):
+    inputImageOne: InputImageOne
+    value: str = "Inputs"
+    type: Literal["object"] = "object"
+    field: Literal["input"] = "input"
 
-class OutputImage2(Output):
-    name: Literal["outputImage2"] = "outputImage2"
-    value: Union[List[Image], Image]
-    type: str = "object"
-    class Config:
-        title = "Result Output 2"
+class ExecutorTwoInputs(Inputs):
+    inputImageTwo: InputImageTwo
+    inputImageThree: InputImageThree
+    value: str = "Inputs"
+    type: Literal["object"] = "object"
+    field: Literal["input"] = "input"
 
-class OutputImage3(Output):
-    name: Literal["outputImage3"] = "outputImage3"
-    value: Union[List[Image], Image]
-    type: str = "object"
-    class Config:
-        title = "Result Output 3"
-
-class OptionAIntegerField(Config):
+# ----------------- CONFIGS -----------------
+class OptionAIntegerField(Param):
     name: Literal["OptionAIntegerField"] = "OptionAIntegerField"
     value: int = Field(default=10)
     type: Literal["number"] = "number"
@@ -52,25 +52,16 @@ class OptionAIntegerField(Config):
     class Config:
         title = "Integer Field for A"
 
-class OptionAStringField(Config):
-    name: Literal["OptionAStringField"] = "OptionAStringField"
-    value: str = Field(default="demo A")
-    type: Literal["string"] = "string"
-    field: Literal["textInput"] = "textInput"
-    class Config:
-        title = "String Field for A"
-
-class OptionA(Config):
-    optionAIntegerField: OptionAIntegerField
-    optionAStringField: OptionAStringField
+class OptionA(Param):
     name: Literal["OptionA"] = "OptionA"
+    optionAIntegerField: OptionAIntegerField
     value: Literal["OptionA"] = "OptionA"
     type: Literal["string"] = "string"
     field: Literal["option"] = "option"
     class Config:
         title = "Method A"
 
-class OptionBFloatField(Config):
+class OptionBFloatField(Param):
     name: Literal["OptionBFloatField"] = "OptionBFloatField"
     value: float = Field(default=1.5)
     type: Literal["number"] = "number"
@@ -78,25 +69,16 @@ class OptionBFloatField(Config):
     class Config:
         title = "Float Field for B"
 
-class OptionBStringField(Config):
-    name: Literal["OptionBStringField"] = "OptionBStringField"
-    value: str = Field(default="demo B")
-    type: Literal["string"] = "string"
-    field: Literal["textInput"] = "textInput"
-    class Config:
-        title = "String Field for B"
-
-class OptionB(Config):
-    optionBFloatField: OptionBFloatField
-    optionBStringField: OptionBStringField
+class OptionB(Param):
     name: Literal["OptionB"] = "OptionB"
+    optionBFloatField: OptionBFloatField
     value: Literal["OptionB"] = "OptionB"
     type: Literal["string"] = "string"
     field: Literal["option"] = "option"
     class Config:
         title = "Method B"
 
-class DemoDependentDropdown(Config):
+class DemoDependentDropdown(Param):
     name: Literal["demoDependentDropdown"] = "demoDependentDropdown"
     value: Union[OptionA, OptionB]
     type: Literal["object"] = "object"
@@ -107,15 +89,55 @@ class DemoDependentDropdown(Config):
             "shortDescription": "Method Selection"
         }
 
-class ExecutorOneInputs(Inputs):
-    inputImage1: InputImage1
-
 class ExecutorOneConfigs(Configs):
     demoDependentDropdown: DemoDependentDropdown
+    value: str = "Configs"
+    type: Literal["object"] = "object"
+    field: Literal["config"] = "config"
+
+class ExecutorTwoConfigs(Configs):
+    demoDependentDropdown: DemoDependentDropdown
+    value: str = "Configs"
+    type: Literal["object"] = "object"
+    field: Literal["config"] = "config"
+
+# ----------------- OUTPUTS -----------------
+class OutputImageOne(Param):
+    name: Literal["outputImageOne"] = "outputImageOne"
+    value: ImageList
+    type: Literal["imageList"] = "imageList"
+    field: Literal["img"] = "img"
+    class Config:
+        title = "Result Output 1"
+
+class OutputImageTwo(Param):
+    name: Literal["outputImageTwo"] = "outputImageTwo"
+    value: ImageList
+    type: Literal["imageList"] = "imageList"
+    field: Literal["img"] = "img"
+    class Config:
+        title = "Result Output 2"
+
+class OutputImageThree(Param):
+    name: Literal["outputImageThree"] = "outputImageThree"
+    value: ImageList
+    type: Literal["imageList"] = "imageList"
+    field: Literal["img"] = "img"
+    class Config:
+        title = "Result Output 3"
 
 class ExecutorOneOutputs(Outputs):
-    outputImage1: OutputImage1
+    outputImageOne: OutputImageOne
+    type: Literal["object"] = "object"
+    field: Literal["output"] = "output"
 
+class ExecutorTwoOutputs(Outputs):
+    outputImageTwo: OutputImageTwo
+    outputImageThree: OutputImageThree
+    type: Literal["object"] = "object"
+    field: Literal["output"] = "output"
+
+# ----------------- REQUEST/RESPONSE -----------------
 class ExecutorOneRequest(Request):
     inputs: Optional[ExecutorOneInputs]
     configs: ExecutorOneConfigs
@@ -124,26 +146,6 @@ class ExecutorOneRequest(Request):
 
 class ExecutorOneResponse(Response):
     outputs: ExecutorOneOutputs
-
-class ExecutorOne(Config):
-    name: Literal["ExecutorOne"] = "ExecutorOne"
-    value: Union[ExecutorOneRequest, ExecutorOneResponse]
-    type: Literal["object"] = "object"
-    field: Literal["option"] = "option"
-    class Config:
-        title = "Executor One"
-        json_schema_extra = {"target": {"value": 0}}
-
-class ExecutorTwoInputs(Inputs):
-    inputImage2: InputImage2
-    inputImage3: InputImage3
-
-class ExecutorTwoConfigs(Configs):
-    demoDependentDropdown: DemoDependentDropdown
-
-class ExecutorTwoOutputs(Outputs):
-    outputImage2: OutputImage2
-    outputImage3: OutputImage3
 
 class ExecutorTwoRequest(Request):
     inputs: Optional[ExecutorTwoInputs]
@@ -154,28 +156,40 @@ class ExecutorTwoRequest(Request):
 class ExecutorTwoResponse(Response):
     outputs: ExecutorTwoOutputs
 
-class ExecutorTwo(Config):
+# ----------------- EXECUTORS -----------------
+class ExecutorOne(Executor):
+    name: Literal["ExecutorOne"] = "ExecutorOne"
+    value: Union[ExecutorOneRequest, ExecutorOneResponse]
+    type: Literal["ExecutorOne"] = "ExecutorOne"
+    field: Literal["executor"] = "executor"
+    class Config:
+        title = "Executor One"
+        json_schema_extra = {"target": {"value": 0}}
+
+class ExecutorTwo(Executor):
     name: Literal["ExecutorTwo"] = "ExecutorTwo"
     value: Union[ExecutorTwoRequest, ExecutorTwoResponse]
-    type: Literal["object"] = "object"
-    field: Literal["option"] = "option"
+    type: Literal["ExecutorTwo"] = "ExecutorTwo"
+    field: Literal["executor"] = "executor"
     class Config:
         title = "Executor Two"
         json_schema_extra = {"target": {"value": 0}}
 
-class ConfigExecutor(Config):
-    name: Literal["ConfigExecutor"] = "ConfigExecutor"
+class PackageExecutor(Executor):
+    name: Literal["executor"] = "executor"
     value: Union[ExecutorOne, ExecutorTwo]
     type: Literal["executor"] = "executor"
     field: Literal["dependentDropdownlist"] = "dependentDropdownlist"
     class Config:
-        title = "Executor Options"
+        title = "Task"
         json_schema_extra = {"target": "value"}
 
-class PackageConfigs(Configs):
-    executor: ConfigExecutor
-
+# ----------------- PACKAGE -----------------
 class PackageModel(Package):
-    configs: PackageConfigs
     type: Literal["component"] = "component"
     name: Literal["DemoPackage"] = "DemoPackage"
+    uID: str = "1331112"
+    executor: PackageExecutor
+    field: Literal["executor"] = "executor"
+    class Config:
+        json_schema_extra = {"target": "executor"}

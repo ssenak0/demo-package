@@ -13,7 +13,7 @@ class ExecutorOne(Component):
     def __init__(self, request, bootstrap):
         super().__init__(request, bootstrap)
         self.request.model = PackageModel(**(self.request.data))
-        self.image_one = self.request.get_param("inputImage1")
+        self.image_one = self.request.get_param("inputImageOne")
         self.method = self.request.get_param("demoDependentDropdown")
         
         if self.method == "OptionA":
